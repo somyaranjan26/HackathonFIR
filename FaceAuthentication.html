@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="derma-aid-icon.png">
+    <title>Police Face Recognisation</title>
+    <link rel="icon" href="Images/evgeniy-artsebasov-face-recognition-icon_2x.png">
+
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="center">
+    <div class="container">
+        <img id="logo" src="Images/evgeniy-artsebasov-face-recognition-icon_2x.png">
+    </div>
+
+    <div id="start" class="container">
+        <p>2 Factor Authentication<p>
+        <p>Please Scan Your Face Login.<p>
+        <button id="Scan" class="btn btn-warning btn-lg" onclick="start()">Scan</button>
+        <button id="Back" onclick="location.reload()" class="btn btn-secondary btn-lg">Back</button>
+    </div>
+
+    <div class="container">
+      <p> <video id="video-tag"  style="width: 40%" autoplay="true" /> </p>
+    </div>
+
+    <div id="takep" class="container">
+      <button class="btn btn-light" onclick="takePhoto()">Take Photo</button>
+      <a onclick="location.reload()" class="btn btn-danger">Cancel</a>
+    </div>
+
+    <div id="yourimg" class="container">
+      <h2>Your Image</h2>
+    </div>
+
+    <div class="container">
+          <p><img id="image-tag" width="30%"></p>
+    </div>
+</div>
+<div id="buttons" class="center">
+    <div class="container">
+      <a class="btn btn-success">Submit</a>
+      <a onclick="location.reload()" class="btn btn-danger">Cancel</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+$('#yourimg, #buttons, #takep').hide();
+  const constraints =  { "video": { width: { exact: 320 }}};
+var videoTag = document.getElementById('video-tag');
+var imageTag = document.getElementById('image-tag');
+var imageCapturer;
+
+function start() {
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then(gotMedia)
+    .catch(e => { console.error('getUserMedia() failed: ', e); });
+    $('#takep').show();
+    $('#start').hide();
+}
+
+function gotMedia(mediastream) {
+  videoTag.srcObject = mediastream;
+  document.getElementById('start').disabled = true;
+
+  var videoTrack = mediastream.getVideoTracks()[0];
+  imageCapturer = new ImageCapture(videoTrack);
+}
+
+function takePhoto() {
+  $('#yourimg, #buttons').show();
+  $('#video-tag, #takep').hide();
+  imageCapturer.takePhoto()
+    .then((blob) => {
+      console.log("Photo taken: " + blob.type + ", " + blob.size + "B")
+      imageTag.src = URL.createObjectURL(blob);
+    })
+    .catch((err) => {
+      console.error("takePhoto() failed: ", e);
+    });
+}
+
+
+</script>
+ <footer class="footer">
+    <div class="center">
+      <div class="container">
+        <p>&copy; Company Name 2019 </p>
+      </div>
+    </div>
+</footer>
+<script src="App.js"></script>
+</body>
+</html>
