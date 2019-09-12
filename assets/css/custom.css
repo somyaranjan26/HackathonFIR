@@ -77,6 +77,7 @@ body,html{
 
 #logo {
   margin-top: 150px;
+  margin-bottom: 50px;
   height: 100px;
 }
 #Scan {
@@ -95,6 +96,9 @@ body,html{
   margin-top: 150px;
   margin-left: 500px;
   margin-right: 500px;
+}
+#buttons {
+  margin-bottom: 30px;
 }
 .center {
   text-align: center;
