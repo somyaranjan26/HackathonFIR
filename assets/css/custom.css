@@ -220,3 +220,11 @@ div > .emp-profile > .profile-img{
 .details {
   text-align: center;
 }
+
+/* Authentication Failed Page */
+body {
+  background: #dedede;
+}
+.page-wrap {
+  min-height: 100vh;
+}
