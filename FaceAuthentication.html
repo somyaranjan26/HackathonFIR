@@ -86,7 +86,7 @@ function takePhoto() {
       imageTag.src = URL.createObjectURL(blob);
     })
     .catch((err) => {
-      console.error("takePhoto() failed: ", e);
+      console.log("takePhoto() failed: ", e);
     });
 }
 
